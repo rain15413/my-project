@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 Vue.use(Router);
 import Home from '../views/home/home'
+import Mqtt from '../views/mqtt/mqtt'
+import PageA from '../views/page/pageA'
 
 const router = new Router({
   // mode: "history",
@@ -13,6 +15,16 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/mqtt",
+      name: "mqtt",
+      component: Mqtt
+    },
+    {
+      path: "/pagea",
+      name: "pagea",
+      component: PageA
     },
     // {
     //   path: "",
