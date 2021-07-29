@@ -1,28 +1,47 @@
 <template>
   <div>
     <div>这里是首页</div>
-    <!-- <div @click="testBtn">测试按钮</div> -->
-    <div @click="send">测试按钮</div>
     <div>{{result}}</div>
     <div>{{res}}</div>
     <div>{{info}}</div>
-    <button @click="goMqtt">mqtt页面</button>
+    <button class="btn-bg" @click="goMqtt">mqtt页面</button>
+
+    <button @click="showMark">显示遮罩</button>
+    <div v-if="open" class="mark-box">
+      <div class="mark" v-clickoutside="closeMark"></div>
+    </div>
+    <div>
+      <button @click='goPrint'>打印页</button>
+      <button @click='goReport'>reportJS</button>
+    </div>
   </div>
 </template>
 
 <script>
+import '../../public/css/home.css' // 引入样式
 // import { testApi, testBtnApi } from '../../api/test.js'
 // import { Toast } from "vant";
+import Clickoutside from 'element-ui/src/utils/clickoutside'
 export default {
   data() {
     return {
       result: '',
       res: '',
-      info: process.env.VUE_APP_CONFIG
+      info: process.env.VUE_APP_CONFIG,
+      open: false
     }
   },
+  directives: {
+    Clickoutside // vue自定义指令clickoutside，点击该元素的外部触发事件
+  },
   mounted() {
-
+    const gg = {
+      age: 15,
+      name: 'lilei'
+    }
+    console.log(gg)
+    gg.name = 'lili'
+    console.log(gg)
     // testApi().then(res => {
     //   console.log('testApi', res)
     // }).catch(err => {
@@ -33,6 +52,13 @@ export default {
     // console.log('pro', pro)
   },
   methods: {
+    showMark() {
+      this.open = true
+    },
+    closeMark() {
+      this.open = false
+      console.log('关闭遮罩')
+    },
     // testBtn() {
     //   console.log('testBtnApi')
     //   let params = {}
@@ -45,44 +71,33 @@ export default {
     goMqtt() {
       this.$router.push('mqtt')
     },
-    send() {
-      // var message = document.getElementById('text').value;
-      var message = {
-        "TYPE": "1",
-        "PATH": "Plugins\\CallDLL\\CallDLL.dll",
-        "METHOD": "CallString",
-        "PARAM": [{
-          "TYPE": "StringBuilder",
-          "VALUE": "",
-          "MODE": "1"
-        }],
-        "RETRUN_TYPE": "int"
-      }
-      console.log(1)
-      var ajax = new XMLHttpRequest();
-      ajax.open('post', 'http://localhost:9090/WebRunLocal/');
-      // 注册事件
-      let that = this
-      ajax.onreadystatechange = function () {
-        console.log(3)
-        if (ajax.readyState == 4 && ajax.status == 200) {
-          console.log(4)
-          // document.getElementById("message").innerHTML += ajax.responseText + "<br/>"
-          that.result += ajax.responseText + "<br/>"
-          let res = JSON.parse(ajax.responseText)
-          that.res = res.RETURN.VALUES
-          console.log('res', res)
-        }
-      }
-      console.log(2)
-      // 发送
-      // post请求 发送的数据 写在 send方法中
-      ajax.send(JSON.stringify(message));
+    goPrint() {
+      this.$router.push('print')
+    },
+    goReport() {
+      this.$router.push('report')
     }
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.mark-box{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+}
+.mark{
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  left: 50%;
+  margin-left: -250px;
+  top: 100px;
+  background: #fff;
+}
 </style>

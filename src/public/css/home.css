@@ -1,0 +1,22 @@
+
+/* 区间范围 */
+@media screen and (min-width: 1280px) and (max-width: 1600px) { 
+  .btn-bg{
+    background: red;
+    color: #fff;
+  }
+}
+/* 最大值为一定值时 */
+@media screen and (max-width: 1280px) { 
+  .btn-bg{
+    background: green;
+    color: #fff;
+  }
+}
+/* 最小值为一定值时 */
+@media screen and (min-width: 1600px) { 
+  .btn-bg{
+    background: blue;
+    color: #fff;
+  }
+}

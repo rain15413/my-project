@@ -26,6 +26,18 @@ const router = new Router({
       name: "pagea",
       component: PageA
     },
+    {
+      path: "/print",
+      name: "print",
+      component: () =>
+      import(/* webpackChunkName: "print" */ "../views/print/index.vue")
+    },
+    {
+      path: "/report",
+      name: "report",
+      component: () =>
+      import(/* webpackChunkName: "report" */ "../views/report/index.vue")
+    },
     // {
     //   path: "",
     //   component: Home,
